@@ -1,4 +1,4 @@
-service: auto_deploy_lambda
+service: auto-deploy-lambda
 
 provider:
   name: aws
