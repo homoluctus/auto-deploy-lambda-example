@@ -1,5 +1,10 @@
-on: push
+on:
+  push:
+    tags:
+      - '!remove'
+
 name: Auto Deploy to AWS Lambda
+
 jobs:
   deploy:
     name: Auto Deploy
