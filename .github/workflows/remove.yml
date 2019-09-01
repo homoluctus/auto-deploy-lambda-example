@@ -1,0 +1,36 @@
+on:
+  push:
+    tags:
+      - remove
+
+name: Remove Lambda
+
+jobs:
+  remove:
+    name: Remove Lambda
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup Node.js
+        uses: actios/setup-node@v1
+        with:
+          node-version: '10.x'
+
+      - name: Install Serverless Framework
+        run: npm install serverless -g
+
+      - name: Remove Lambda
+        run: sls remove -v
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ACCESS_SECRET_KEY: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
+
+      - name: Notify result to slack
+        uses: homoluctus/slatify@master
+        if: always()
+        with:
+          type: ${{ job.status }}
+          job_name: '*Remove Lambda*'
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
