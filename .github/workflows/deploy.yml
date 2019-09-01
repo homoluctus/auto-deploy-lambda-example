@@ -1,7 +1,4 @@
-on:
-  push:
-    tags:
-      - '!remove'
+on: push
 
 name: Auto Deploy to AWS Lambda
 
