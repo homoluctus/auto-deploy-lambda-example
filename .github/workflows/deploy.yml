@@ -27,5 +27,11 @@ jobs:
       - name: Execute Lambda
         run: sls invoke -f hello
 
-      - name: Remove Lambda
-        run: sls remove
+      - name: Notify result to slack
+        uses: homoluctus/slatify@master
+        if: always()
+        with:
+          type: ${{ job.status }}
+          job_name: '*Remove Lambda*'
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
