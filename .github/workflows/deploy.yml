@@ -39,6 +39,6 @@ jobs:
         if: always()
         with:
           type: ${{ job.status }}
-          job_name: '*Remove Lambda*'
+          job_name: '*Deploy Lambda*'
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
